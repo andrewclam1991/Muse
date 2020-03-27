@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Muse</string>
+    <string name="title_player">Media Player</string>
 </resources>
