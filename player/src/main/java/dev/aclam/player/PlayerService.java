@@ -1,4 +1,4 @@
-package dev.aclam.player.service;
+package dev.aclam.mediaplayer2;
 
 import java.util.concurrent.TimeUnit;
 

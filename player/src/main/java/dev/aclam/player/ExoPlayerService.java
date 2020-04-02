@@ -1,4 +1,4 @@
-package dev.aclam.player.service;
+package dev.aclam.mediaplayer2;
 
 import android.app.Service;
 import android.content.Intent;
@@ -118,7 +118,7 @@ public class ExoPlayerService extends Service implements PlayerService {
     private void setupPlayer() {
         if (player == null) {
             DefaultTrackSelector trackSelector = new DefaultTrackSelector();
-            trackSelector.setParameters(trackSelector.buildUponParameters().setMaxVideoSizeSd());
+            trackSelector.setParameters(trackSelector.buildUponParameters().setMaxAudioBitrate(128000));
             player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
         }
 

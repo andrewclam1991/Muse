@@ -1,11 +1,9 @@
-package dev.aclam.player;
+package dev.aclam.mediaplayer2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import dev.aclam.player.service.ExoPlayerService;
 
 public class PlayerActivity extends AppCompatActivity {
 
