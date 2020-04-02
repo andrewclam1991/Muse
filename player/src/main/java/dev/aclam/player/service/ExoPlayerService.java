@@ -179,7 +179,7 @@ public class ExoPlayerService extends Service implements PlayerService {
     }
 
     public class PlayerServiceBinder extends Binder {
-        PlayerService getService() {
+        public PlayerService getService() {
             return ExoPlayerService.this;
         }
     }
