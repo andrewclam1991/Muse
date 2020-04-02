@@ -29,6 +29,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":player")
 
     api 'io.reactivex.rxjava3:rxjava:3.0.1'
     api 'androidx.appcompat:appcompat:1.1.0'
