@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.aclam.player">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application>
         <activity
             android:name=".PlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:theme="@style/PlayerTheme"/>
+
+        <service android:name=".service.ExoPlayerService"/>
     </application>
 
 </manifest>

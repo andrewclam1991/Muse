@@ -1,5 +1,8 @@
 package dev.aclam.player.service;
 
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+
 import java.util.concurrent.TimeUnit;
 
 public interface PlayerService {
@@ -56,4 +59,6 @@ public interface PlayerService {
      * @param timeUnit a {@link TimeUnit}
      */
     void replay(int amount, TimeUnit timeUnit);
+
+    SimpleExoPlayer getPlayer();
 }

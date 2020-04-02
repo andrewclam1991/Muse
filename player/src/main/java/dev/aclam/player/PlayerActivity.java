@@ -31,9 +31,7 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
-        Intent playerServiceIntent = new Intent(this, ExoPlayerService.class);
-        startService(playerServiceIntent);
+        playerView = findViewById(R.id.video_view);
     }
 
     @Override
@@ -46,7 +44,7 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        hideSystemUi();
+        // hideSystemUi();
     }
 
     @Override
@@ -77,6 +75,8 @@ public class PlayerActivity extends AppCompatActivity {
                 ExoPlayerService.PlayerServiceBinder binder = (ExoPlayerService.PlayerServiceBinder) service;
                 playerService = binder.getService();
                 isPlayerServiceBound = true;
+                playerService.play();
+                playerView.setPlayer(playerService.getPlayer());
             }
 
             @Override

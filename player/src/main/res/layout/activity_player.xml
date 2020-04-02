@@ -9,8 +9,6 @@
         android:id="@+id/video_view"
         app:use_controller="true"
         android:layout_width="match_parent"
-        app:show_timeout="10000"
-        app:fastforward_increment="100000"
         android:layout_height="match_parent"/>
 
 </FrameLayout>

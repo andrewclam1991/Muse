@@ -19,6 +19,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 
 import java.util.concurrent.TimeUnit;
 
+import dev.aclam.player.R;
+
 /**
  * Android framework {@link Service} implementation of {@link PlayerService}
  */
@@ -32,10 +34,12 @@ public class ExoPlayerService extends Service implements PlayerService {
     private int currentWindow;
     private long playbackPosition;
 
+    private final IBinder binder = new PlayerServiceBinder();
+
     @Override
     public IBinder onBind(Intent intent) {
         // stop foreground service
-        return null;
+        return binder;
     }
 
     @Override
@@ -111,6 +115,11 @@ public class ExoPlayerService extends Service implements PlayerService {
         player.previous();
     }
 
+    @Override
+    public SimpleExoPlayer getPlayer() {
+        return player;
+    }
+
     /**
      * Synchronously builds a {@link ExoPlayer} instance, should be called when service is
      * created.
@@ -118,7 +127,7 @@ public class ExoPlayerService extends Service implements PlayerService {
     private void setupPlayer() {
         if (player == null) {
             DefaultTrackSelector trackSelector = new DefaultTrackSelector();
-            trackSelector.setParameters(trackSelector.buildUponParameters().setMaxAudioBitrate(128000));
+            trackSelector.setParameters(trackSelector.buildUponParameters().setMaxVideoSizeSd());
             player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
         }
 
@@ -126,6 +135,10 @@ public class ExoPlayerService extends Service implements PlayerService {
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
         player.addListener(playbackStateListener);
+
+        Uri uri = Uri.parse(getString(R.string.media_url_dash));
+        MediaSource mediaSource = buildMediaSource(uri);
+        player.prepare(mediaSource, false, false);
     }
 
     /**
