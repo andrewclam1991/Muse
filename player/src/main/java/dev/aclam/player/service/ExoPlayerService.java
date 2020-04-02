@@ -1,4 +1,4 @@
-package dev.aclam.player;
+package dev.aclam.player.service;
 
 import android.app.Service;
 import android.content.Intent;

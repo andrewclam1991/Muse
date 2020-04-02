@@ -1,8 +1,8 @@
-package dev.aclam.muse.song.data;
+package dev.aclam.tohear.song.data;
 
 import java.util.List;
 
-import dev.aclam.muse.song.Song;
+import dev.aclam.tohear.song.Song;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;

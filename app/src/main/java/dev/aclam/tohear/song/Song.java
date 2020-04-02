@@ -1,4 +1,4 @@
-package dev.aclam.muse.song;
+package dev.aclam.tohear.song;
 
 public class Song {
     private String uuid;
