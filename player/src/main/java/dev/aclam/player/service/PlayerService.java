@@ -9,7 +9,7 @@ public interface PlayerService {
     void close();
 
     /**
-     * Commands {@link PlayerService} to play or resume last known media
+     * Commands {@link PlayerService} to play or resume media playback
      */
     void play();
 
@@ -29,19 +29,19 @@ public interface PlayerService {
     void previous();
 
     /**
-     * Forward the media playback by 10 seconds
+     * Forward playback by 10 seconds, or until the end of media playback,
+     * whichever is earlier.
      */
     void forward();
 
     /**
-     * Replay the media playback by 10 seconds
+     * Replay media by 10 seconds, or until the start of media playback
      */
     void replay();
 
     /**
-     * Forward the current media playback by the given amount of time,
-     * the amount of time forwarded will be capped at the last position
-     * of media playback.
+     * Set the playback forward by the given amount of time, capped until the end of media
+     * playback.
      *
      * @param amount amount of time
      * @param timeUnit a {@link TimeUnit}
@@ -49,9 +49,8 @@ public interface PlayerService {
     void forward(int amount, TimeUnit timeUnit);
 
     /**
-     * Replay the current media playback by the given amount of time,
-     * the amount of time rewind will be capped at the first position
-     * of media playback.
+     * Set the playback back by the given amount of time, capped until the start of
+     * media playback.
      *
      * @param amount amount of time
      * @param timeUnit a {@link TimeUnit}

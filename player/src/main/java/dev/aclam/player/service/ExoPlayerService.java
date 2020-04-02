@@ -19,6 +19,9 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Android framework {@link Service} implementation of {@link PlayerService}
+ */
 public class ExoPlayerService extends Service implements PlayerService {
 
     private static final String TAG = ExoPlayerService.class.getName();
