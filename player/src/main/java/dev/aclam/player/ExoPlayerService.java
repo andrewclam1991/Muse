@@ -17,6 +17,8 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class ExoPlayerService extends Service implements PlayerService {
 
     private static final String TAG = ExoPlayerService.class.getName();
@@ -58,6 +60,13 @@ public class ExoPlayerService extends Service implements PlayerService {
     }
 
     @Override
+    public void close() {
+        stopForeground(true);
+        Intent stopServiceIntent = new Intent(this, ExoPlayerService.class);
+        stopService(stopServiceIntent);
+    }
+
+    @Override
     public void play() {
         player.setPlayWhenReady(true);
     }
@@ -68,8 +77,25 @@ public class ExoPlayerService extends Service implements PlayerService {
     }
 
     @Override
-    public void stop() {
-        player.stop(true);
+    public void forward() {
+        forward(10, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void forward(int amount, TimeUnit timeUnit) {
+        long currentPosition = player.getCurrentPosition();
+        player.seekTo(currentWindow, currentPosition + timeUnit.toMillis(amount));
+    }
+
+    @Override
+    public void replay() {
+        replay(10, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void replay(int amount, TimeUnit timeUnit) {
+        long currentPosition = player.getCurrentPosition();
+        player.seekTo(currentWindow, currentPosition - timeUnit.toMillis(amount));
     }
 
     @Override
@@ -82,11 +108,10 @@ public class ExoPlayerService extends Service implements PlayerService {
         player.previous();
     }
 
-    @Override
-    public void seekTo(int position) {
-        player.seekTo(currentWindow, position);
-    }
-
+    /**
+     * Synchronously builds a {@link ExoPlayer} instance, should be called when service is
+     * created.
+     */
     private void setupPlayer() {
         if (player == null) {
             DefaultTrackSelector trackSelector = new DefaultTrackSelector();
@@ -95,17 +120,15 @@ public class ExoPlayerService extends Service implements PlayerService {
         }
 
         playbackStateListener = new PlaybackStateListener();
-
-        // TODO get default uri from database
-        Uri uri = Uri.parse(getString(R.string.media_url_mp3));
-        MediaSource mediaSource = buildMediaSource(uri);
-
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
         player.addListener(playbackStateListener);
-        player.prepare(mediaSource, false, false);
     }
 
+    /**
+     * Synchronously cleans up a {@link ExoPlayer} instance, should be called when service is
+     * destroyed.
+     */
     private void cleanupPlayer() {
         if (player != null) {
             playbackPosition = player.getCurrentPosition();
@@ -126,6 +149,7 @@ public class ExoPlayerService extends Service implements PlayerService {
     }
 
     private static class PlaybackStateListener implements Player.EventListener {
+
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             String stateString;
